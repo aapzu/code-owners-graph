@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 
 import yargs from 'yargs'
-import {createCodeOwnerGraph} from './codeownersGraph.mjs'
+import { createCodeOwnerGraph } from './codeownersGraph.mjs'
 
-const DEFAULT_EXCLUDE = ['node_modules'];
+const DEFAULT_EXCLUDE = [
+  'node_modules',
+  '.git',
+];
 
 yargs(process.argv.slice(2))
   .command(
@@ -13,6 +16,7 @@ yargs(process.argv.slice(2))
       .option('cwd', {
         alias: 'c',
         describe: 'The directory to run the command in',
+        default: process.cwd(),
         type: 'string',
       })
       .option('file-tree-root', {
@@ -26,13 +30,28 @@ yargs(process.argv.slice(2))
         default: DEFAULT_EXCLUDE,
         describe: 'Files to exclude',
         type: 'array',
-      }),
-    (argv) => {
+      })
+      .option('gitignore', {
+        alias: 'g',
+        default: true,
+        describe: 'Whether to exclude files in .gitignore',
+        type: 'boolean',
+      })
+      .option('maxWidth', {
+        default: 80,
+        describe: 'Maximum width of the printed tree',
+        type: 'number',
+      })
+      ,
+    async (argv) => {
       const exclude = argv.exclude.flatMap((item) => item.split(/, ?/g))
-      return createCodeOwnerGraph({
+      
+      const tree = await createCodeOwnerGraph({
         ...argv,
         exclude,
       })
+
+      console.log(tree)
     }
   )
   .parse()
