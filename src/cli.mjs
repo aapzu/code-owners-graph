@@ -3,11 +3,6 @@
 import yargs from 'yargs'
 import { createCodeOwnerGraph } from './codeownersGraph.mjs'
 
-const DEFAULT_EXCLUDE = [
-  'node_modules',
-  '.git',
-];
-
 yargs(process.argv.slice(2))
   .command(
     '$0', 
@@ -27,7 +22,7 @@ yargs(process.argv.slice(2))
       })
       .option('exclude', {
         alias: 'i',
-        default: DEFAULT_EXCLUDE,
+        default: [],
         describe: 'Files to exclude',
         type: 'array',
       })
