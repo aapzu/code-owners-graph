@@ -2,23 +2,20 @@ import CodeOwners from 'codeowners';
 import { relative } from 'node:path'
 import { createTree, printTree } from './directoryTree/index.mjs';
 
-export const createCodeOwnerGraph = async (argv) => {
-  const codeowners = new CodeOwners(argv.cwd);
+export const createCodeOwnerGraph = async ({ fileTreeRoot, ...args }) => {
+  const codeowners = new CodeOwners(args.cwd);
 
   const getCodeOwnerInfo = (node) => {
-    const relativePath = relative(argv.cwd, node.path) || '.';
+    const relativePath = relative(args.cwd, node.path) || '.';
     const codeownerList = codeowners.getOwner(relativePath);
 
     return codeownerList?.length ? codeownerList.join(',') : ''
   }
 
-  const tree = await createTree(argv.fileTreeRoot, {
-    exclude: argv.exclude,
-    cwd: argv.cwd,
-  });
+  const tree = await createTree(fileTreeRoot, args);
 
   return printTree(tree, {
-    maxWidth: Math.min(argv.maxWidth, process.stdout.columns),
+    maxWidth: Math.min(args.maxWidth, process.stdout.columns),
     printRight: getCodeOwnerInfo
   });
 }

@@ -7,7 +7,7 @@ const createNode = (path) => ({
   children: {},
 })
 
-const createTree = async (rootPath, options, forEachNode) => {
+const createTree = async (rootPath, options) => {
   const files = await globby('**/*', {
     cwd: rootPath,
     onlyFiles: false,
@@ -15,7 +15,7 @@ const createTree = async (rootPath, options, forEachNode) => {
     ignore: options.exclude,
   });
 
-  const rootNode = createNode(rootPath, true);
+  const rootNode = createNode(path.basename(path.resolve(rootPath)), true);
 
   for (const file of files) {
     const pathArray = file.split(path.sep);
