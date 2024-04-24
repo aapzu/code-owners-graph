@@ -1,6 +1,6 @@
 {
   "name": "@aapzu/code-owners-graph",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "",
   "private": false,
   "main": "src/cli.mjs",
