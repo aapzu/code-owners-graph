@@ -8,11 +8,12 @@ code-owners-graph
 ├── README.md                  
 ├── package.json               @aapzu
 ├── pnpm-lock.yaml             
+├── tsconfig.json               
 └── src                        
-    ├── cli.mjs                @aapzu
-    ├── codeownersGraph.mjs    @aapzu
+    ├── cli.mts                @aapzu
+    ├── codeownersGraph.mts    @aapzu
     └── directoryTree          
-        ├── createTree.mjs     @aapzu
+        ├── createTree.mts     @aapzu
         ├── index.mjs          @aapzu
-        └── printTree.mjs      @aapzu
+        └── printTree.mts      @aapzu
 ```
