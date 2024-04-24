@@ -2,9 +2,14 @@ import path from 'node:path'
 
 import chalk from 'chalk'
 
-const concat = (...items) => items.join('')
+export type TNode = {
+  path: string;
+  children: Record<string, TNode>;
+}
 
-const printLine = (node, whitespacePrefix, isRoot, lastChild) => {
+const concat = (...items: string[]) => items.join('')
+
+const printLine = (node: TNode, whitespacePrefix: string, isRoot: boolean, lastChild: boolean) => {
   const treeBranchLine = isRoot ? '' : lastChild ? '└── ' : '├── ';
 
   const nodeNamePart = path.basename(node.path)
@@ -12,7 +17,7 @@ const printLine = (node, whitespacePrefix, isRoot, lastChild) => {
   return concat(whitespacePrefix, treeBranchLine, nodeNamePart)
 }
 
-const formatLine = ({ left, right }, maxRowLength) => {
+const formatLine = ({ left, right }: { left: string, right: string }, maxRowLength: number) => {
   const whitespaceCount = maxRowLength - left.length
 
   const MARGINAL = 4
@@ -22,9 +27,14 @@ const formatLine = ({ left, right }, maxRowLength) => {
   return line
 }
 
+type TPrintTreeOptions = {
+  printRight?: (node: TNode) => string
+  maxWidth?: number
+}
+
 const getTreeRows = (
-  node, 
-  options,
+  node: TNode, 
+  options: TPrintTreeOptions = {},
   whitespacePrefix = '', 
   lastChild = true, 
   isRoot = true, 
@@ -59,8 +69,8 @@ const getTreeRows = (
  * @param DirectoryTree} tree 
  */
 const printTree = (
-  node, 
-  options,
+  node: TNode, 
+  options: TPrintTreeOptions = {},
   whitespacePrefix = '', 
   lastChild = true, 
   isRoot = true, 

@@ -5,19 +5,23 @@
   "private": false,
   "main": "src/cli.mjs",
   "bin": {
-    "code-owners-graph": "src/cli.mjs"
+    "code-owners-graph": "src/cli.mts"
   },
   "scripts": {
-    "start": "node src/cli.mjs"
+    "start": "tsx src/cli.mts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/node": "^20.12.7",
+    "@types/yargs": "^17.0.32",
     "chalk": "^5.3.0",
     "codeowners": "^5.1.1",
-    "globby": "^14.0.0",
+    "globby": "^14.0.1",
     "micromatch": "^4.0.5",
+    "tsx": "^4.7.2",
+    "typescript": "^5.4.5",
     "yargs": "^17.7.2"
   }
 }

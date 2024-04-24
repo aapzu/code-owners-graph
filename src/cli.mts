@@ -1,7 +1,7 @@
-#!/usr/bin/env node
+#!/usr/bin/env tsx
 
 import yargs from 'yargs'
-import { createCodeOwnerGraph } from './codeownersGraph.mjs'
+import { createCodeOwnerGraph } from './codeownersGraph.mts'
 
 yargs(process.argv.slice(2))
   .command(
@@ -24,7 +24,8 @@ yargs(process.argv.slice(2))
         alias: 'i',
         default: [],
         describe: 'Files to exclude',
-        type: 'array',
+        type: 'string',
+        array: true,
       })
       .option('gitignore', {
         alias: 'g',
