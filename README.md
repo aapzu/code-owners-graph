@@ -14,6 +14,6 @@ code-owners-graph
     ├── codeownersGraph.mts    @aapzu
     └── directoryTree          
         ├── createTree.mts     @aapzu
-        ├── index.mjs          @aapzu
+        ├── index.mts          @aapzu
         └── printTree.mts      @aapzu
 ```
