@@ -1,11 +1,20 @@
 import CodeOwners from 'codeowners';
 import { relative } from 'node:path'
-import { createTree, printTree } from './directoryTree/index.mjs';
+import { createTree, printTree } from './directoryTree/index.mts';
+import { TNode } from './directoryTree/printTree.mts';
 
-export const createCodeOwnerGraph = async ({ fileTreeRoot, ...args }) => {
+type TCreateCodeOwnerGraphArgs = {
+  cwd: string;
+  fileTreeRoot: string;
+  maxWidth: number;
+  exclude: string[];
+  gitignore: boolean;
+}
+
+export const createCodeOwnerGraph = async ({ fileTreeRoot, ...args }: TCreateCodeOwnerGraphArgs) => {
   const codeowners = new CodeOwners(args.cwd);
 
-  const getCodeOwnerInfo = (node) => {
+  const getCodeOwnerInfo = (node: TNode) => {
     const relativePath = relative(args.cwd, node.path) || '.';
     const codeownerList = codeowners.getOwner(relativePath);
 
